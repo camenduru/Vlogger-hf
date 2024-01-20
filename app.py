@@ -181,7 +181,7 @@ def init_model():
     model = get_models(args).to(device)
     model = tca_transform_model(model).to(device)
     model = ip_transform_model(model).to(device)
-    if args.enable_xformers_memory_efficient_attention:
+    if args.enable_xformers_memory_efficient_attention and device=="cuda":
         if is_xformers_available():
             model.enable_xformers_memory_efficient_attention()
             print("xformer!")
