@@ -1,1 +1,1 @@
-import .video_transforms as video_transforms
+from . import video_transforms
