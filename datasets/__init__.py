@@ -1,1 +1,1 @@
-import video_transforms
+import .video_transforms as video_transforms
