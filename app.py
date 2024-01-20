@@ -1,4 +1,12 @@
 import torch
+import sys
+try:
+    import utils
+    from diffusion import create_diffusion
+except:
+    sys.path.append(os.path.split(sys.path[0])[0])
+    import utils
+    
 import gradio as gr
 from gradio.themes.utils import colors, fonts, sizes
 import argparse
@@ -16,22 +24,9 @@ from utils import mask_generation_before
 from backend import auto_inpainting
 from einops import rearrange
 import torchvision
-import sys
 from PIL import Image
 from transformers import CLIPVisionModelWithProjection, CLIPImageProcessor
 from transformers.image_transforms import convert_to_rgb
-try:
-    import utils
-
-    from diffusion import create_diffusion
-    from download import find_model
-except:
-    sys.path.append(os.path.split(sys.path[0])[0])
-    
-    import utils
-
-    from diffusion import create_diffusion
-    from download import find_model
     
     
 def auto_inpainting(video_input, masked_video, mask, prompt, image, vae, text_encoder, image_encoder, diffusion, model, device, cfg_scale, img_cfg_scale, negative_prompt=""):
