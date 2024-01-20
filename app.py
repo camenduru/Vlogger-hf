@@ -170,7 +170,7 @@ def init_model():
     args = parser.parse_args()
     args = OmegaConf.load(args.config)
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    output_path = args.save_img_path
+    output_path = args.save_path
     # Load model:
     latent_h = args.image_size[0] // 8
     latent_w = args.image_size[1] // 8
