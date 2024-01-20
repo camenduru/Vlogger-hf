@@ -195,7 +195,7 @@ def init_model():
         else:
             raise ValueError("xformers is not available. Make sure it is installed correctly")
     ckpt_path = args.ckpt
-    state_dict = find_model(ckpt_path)
+    state_dict = state_dict = torch.load(ckpt_path, map_location=lambda storage, loc: storage)['ema']
     model.load_state_dict(state_dict)
     print('loading succeed')
     model.eval()  # important!
