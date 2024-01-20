@@ -9,6 +9,7 @@ from diffusers.utils.import_utils import is_xformers_available
 from vlogger.STEB.model_transform import tca_transform_model, ip_scale_set, ip_transform_model
 from diffusers.models import AutoencoderKL
 from models.clip import TextEmbedder
+sys.path.append("..")
 from datasets import video_transforms
 from torchvision import transforms
 from utils import mask_generation_before
@@ -224,7 +225,7 @@ def video_generation(text, image, scfg_scale, tcfg_scale, img_cfg_scale, diffusi
         print("begin generation", flush=True)
         transform_video = transforms.Compose([
             video_transforms.ToTensorVideo(), # TCHW
-            video_transforms.WebVideo320512((320, 512)),
+            video_transforms.ResizeVideo((320, 512)),
             transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5], inplace=True)
         ])
         video_frames = torch.zeros(16, 3, 320, 512, dtype=torch.uint8)
@@ -253,7 +254,6 @@ def video_prediction(text, image, scfg_scale, tcfg_scale, img_cfg_scale, prefram
         print("begin generation", flush=True)
         transform_video = transforms.Compose([
             video_transforms.ToTensorVideo(), # TCHW
-            # video_transforms.WebVideo320512((320, 512)),
             transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5], inplace=True)
         ])
         preframe = torch.as_tensor(convert_to_rgb(preframe)).unsqueeze(0)
