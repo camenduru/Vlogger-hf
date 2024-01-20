@@ -17,7 +17,7 @@ Pillow==9.4.0
 pytorch_lightning==2.0.2
 rotary_embedding_torch==0.2.3
 soundfile==0.12.1
-torch==2.0.0
+torch==2.0.0+cu117
 torchvision==0.15.0
 tqdm==4.65.0
 transformers==4.28.1
