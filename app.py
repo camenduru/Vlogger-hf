@@ -178,7 +178,7 @@ def init_model():
     args.latent_h = latent_h
     args.latent_w = latent_w
     print('loading model')
-    model = get_models(True, args).to(device)
+    model = get_models(args).to(device)
     model = tca_transform_model(model).to(device)
     model = ip_transform_model(model).to(device)
     if args.use_compile:
@@ -196,8 +196,7 @@ def init_model():
     model.eval()  # important!
     pretrained_model_path = args.pretrained_model_path
     vae = AutoencoderKL.from_pretrained(pretrained_model_path, subfolder="vae").to(device)
-    text_encoder = TextEmbedder(tokenizer_path=pretrained_model_path + "tokenizer",
-                                encoder_path=pretrained_model_path + "text_encoder").to(device)
+    text_encoder = TextEmbedder(pretrained_model_path).to(device)
     image_encoder = CLIPVisionModelWithProjection.from_pretrained(args.image_encoder_path).to(device)
     clip_image_processor = CLIPImageProcessor()
     if args.use_fp16:
