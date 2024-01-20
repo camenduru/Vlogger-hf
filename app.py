@@ -311,16 +311,16 @@ with gr.Blocks() as demo:
                         interactive=True,
                         label="Spatial Text Guidence Scale",
                     )
-            with gr.Row():
-                with gr.Column(scale=1.0):
-                    tcfg_scale = gr.Slider(
-                        minimum=1,
-                        maximum=50,
-                        value=6.5,
-                        step=0.1,
-                        interactive=True,
-                        label="Temporal Text Guidence Scale",
-                    )
+            # with gr.Row():
+            #     with gr.Column(scale=1.0):
+            #         tcfg_scale = gr.Slider(
+            #             minimum=1,
+            #             maximum=50,
+            #             value=6.5,
+            #             step=0.1,
+            #             interactive=True,
+            #             label="Temporal Text Guidence Scale",
+            #         )
             with gr.Row():
                 with gr.Column(scale=1.0):
                     img_cfg_scale = gr.Slider(
@@ -355,6 +355,7 @@ with gr.Blocks() as demo:
             #         up_image = gr.Image(type="pil", interactive=True, elem_id="image_upload").style(height=360)
             # upload_button = gr.Button(value="Upload & Start Chat", interactive=True, variant="primary")
             clear = gr.Button("Restart")
+    tcfg_scale = scfg_scale
     run.click(gen_or_pre, [text_input, image_input, scfg_scale, tcfg_scale, img_cfg_scale, preframe_input, diffusion_step], [output_video])
     
 demo.launch(share=True, enable_queue=True)
