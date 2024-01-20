@@ -21,7 +21,6 @@ sys.path.append("..")
 from datasets import video_transforms
 from torchvision import transforms
 from utils import mask_generation_before
-from backend import auto_inpainting
 from einops import rearrange
 import torchvision
 from PIL import Image
