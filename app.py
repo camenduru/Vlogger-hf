@@ -6,7 +6,7 @@ from omegaconf import OmegaConf
 import os
 from models import get_models
 from diffusers.utils.import_utils import is_xformers_available
-from tca.tca_transform import tca_transform_model
+from vlogger.STEB.model_transform import tca_transform_model, ip_scale_set, ip_transform_model
 from diffusers.models import AutoencoderKL
 from models.clip import TextEmbedder
 from datasets import video_transforms
@@ -17,7 +17,6 @@ from einops import rearrange
 import torchvision
 import sys
 from PIL import Image
-from ip_adapter.ip_adapter_transform import ip_scale_set, ip_transform_model
 from transformers import CLIPVisionModelWithProjection, CLIPImageProcessor
 from transformers.image_transforms import convert_to_rgb
 try:
@@ -26,12 +25,7 @@ try:
     from diffusion import create_diffusion
     from download import find_model
 except:
-    # sys.path.append(os.getcwd())
     sys.path.append(os.path.split(sys.path[0])[0])
-    # 代码解释
-    # sys.path[0]                   : 得到C:\Users\maxu\Desktop\blog_test\pakage2
-    # os.path.split(sys.path[0])    : 得到['C:\Users\maxu\Desktop\blog_test',pakage2']
-    # mmcls 里面跨包引用是因为安装了mmcls
     
     import utils
 
@@ -176,7 +170,7 @@ def init_model():
     global clip_image_processor
     print('Initializing ShowMaker', flush=True)
     parser = argparse.ArgumentParser()
-    parser.add_argument("--config", type=str, default="./configs/sample_mask.yaml")
+    parser.add_argument("--config", type=str, default="./configs/with_mask_ref_sample.yaml")
     args = parser.parse_args()
     args = OmegaConf.load(args.config)
     device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -368,6 +362,6 @@ with gr.Blocks() as demo:
             clear = gr.Button("Restart")
     run.click(gen_or_pre, [text_input, image_input, scfg_scale, tcfg_scale, img_cfg_scale, preframe_input, diffusion_step], [output_video])
     
-# demo.launch(share=True, enable_queue=True)
+demo.launch(share=True, enable_queue=True)
 
-demo.launch(server_name="0.0.0.0", server_port=10034, enable_queue=True)
+# demo.launch(server_name="0.0.0.0", server_port=10034, enable_queue=True)
