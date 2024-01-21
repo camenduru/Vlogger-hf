@@ -291,12 +291,12 @@ with gr.Blocks() as demo:
         with gr.Column(visible=True) as input_raws:
             with gr.Row():
                 with gr.Column(scale=1.0):
-                    text_input = gr.Textbox(show_label=True, interactive=True, label="Text prompt").style(container=False)
+                    text_input = gr.Textbox(show_label=True, interactive=True, label="Text prompt")
             with gr.Row():
                 with gr.Column(scale=0.5):
-                    image_input = gr.Image(show_label=True, interactive=True, label="Reference image").style(container=False)
+                    image_input = gr.Image(show_label=True, interactive=True, label="Reference image")
                 with gr.Column(scale=0.5):
-                    preframe_input = gr.Image(show_label=True, interactive=True, label="First frame").style(container=False)
+                    preframe_input = gr.Image(show_label=True, interactive=True, label="First frame")
             with gr.Row():
                 with gr.Column(scale=1.0):
                     scfg_scale = gr.Slider(
@@ -343,13 +343,7 @@ with gr.Blocks() as demo:
                 with gr.Column(scale=0.5, min_width=0):
                     clear = gr.Button("🔄Clear️")     
         with gr.Column(scale=0.5, visible=True) as video_upload:
-            output_video = gr.Video(interactive=False, include_audio=True, elem_id="输出的视频")#.style(height=360)
-            # with gr.Column(elem_id="image", scale=0.5) as img_part:
-            #     with gr.Tab("Video", elem_id='video_tab'):
-                    
-            #     with gr.Tab("Image", elem_id='image_tab'):
-            #         up_image = gr.Image(type="pil", interactive=True, elem_id="image_upload").style(height=360)
-            # upload_button = gr.Button(value="Upload & Start Chat", interactive=True, variant="primary")
+            output_video = gr.Video(interactive=False, include_audio=True, elem_id="输出的视频")
             clear = gr.Button("Restart")
     tcfg_scale = scfg_scale
     run.click(gen_or_pre, [text_input, image_input, scfg_scale, tcfg_scale, img_cfg_scale, preframe_input, diffusion_step], [output_video])
