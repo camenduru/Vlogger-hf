@@ -239,7 +239,7 @@ def video_generation(text, image, scfg_scale, tcfg_scale, img_cfg_scale, diffusi
         vae.to(dtype=torch.float16)
         model.to(dtype=torch.float16)
         text_encoder.to(dtype=torch.float16)
-        image_encoder.to(dtype=torch.float16)
+        # image_encoder.to(dtype=torch.float16)
         use_fp16 = True
     print('Initialization Finished')
     
@@ -296,7 +296,7 @@ def video_prediction(text, image, scfg_scale, tcfg_scale, img_cfg_scale, prefram
         vae.to(dtype=torch.float16)
         model.to(dtype=torch.float16)
         text_encoder.to(dtype=torch.float16)
-        image_encoder.to(dtype=torch.float16)
+        # image_encoder.to(dtype=torch.float16)
         use_fp16 = True
     print('Initialization Finished')
     
