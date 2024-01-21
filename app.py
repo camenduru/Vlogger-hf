@@ -154,7 +154,7 @@ vae = None
 text_encoder = None
 image_encoder = None
 clip_image_processor = None
-@spaces.GPU
+# @spaces.GPU
 def init_model():
     global device
     global output_path
@@ -215,7 +215,7 @@ init_model()
 # ========================================
 @spaces.GPU
 def video_generation(text, image, scfg_scale, tcfg_scale, img_cfg_scale, diffusion):
-    global device
+    device = "cuda" if torch.cuda.is_available() else "cpu"
     global output_path
     global use_fp16
     global model
@@ -223,6 +223,25 @@ def video_generation(text, image, scfg_scale, tcfg_scale, img_cfg_scale, diffusi
     global text_encoder
     global image_encoder
     global clip_image_processor 
+    vae = vae.to(device)
+    text_encoder = text_encoder.to(device)
+    image_encoder = image_encoder.to(device)
+    model = model.to(device)
+    if args.enable_xformers_memory_efficient_attention and device=="cuda":
+        if is_xformers_available():
+            model.enable_xformers_memory_efficient_attention()
+            print("xformer!")
+        else:
+            raise ValueError("xformers is not available. Make sure it is installed correctly")
+    if args.use_fp16:
+        print('Warnning: using half percision for inferencing!')
+        vae.to(dtype=torch.float16)
+        model.to(dtype=torch.float16)
+        text_encoder.to(dtype=torch.float16)
+        image_encoder.to(dtype=torch.float16)
+        use_fp16 = True
+    print('Initialization Finished')
+    
     with torch.no_grad():
         print("begin generation", flush=True)
         transform_video = transforms.Compose([
@@ -253,14 +272,33 @@ def video_generation(text, image, scfg_scale, tcfg_scale, img_cfg_scale, diffusi
 # ========================================
 @spaces.GPU
 def video_prediction(text, image, scfg_scale, tcfg_scale, img_cfg_scale, preframe, diffusion):
-    global device
+    device = "cuda" if torch.cuda.is_available() else "cpu"
     global output_path
     global use_fp16
     global model
     global vae
     global text_encoder
     global image_encoder
-    global clip_image_processor
+    global clip_image_processor 
+    vae = vae.to(device)
+    text_encoder = text_encoder.to(device)
+    image_encoder = image_encoder.to(device)
+    model = model.to(device)
+    if args.enable_xformers_memory_efficient_attention and device=="cuda":
+        if is_xformers_available():
+            model.enable_xformers_memory_efficient_attention()
+            print("xformer!")
+        else:
+            raise ValueError("xformers is not available. Make sure it is installed correctly")
+    if args.use_fp16:
+        print('Warnning: using half percision for inferencing!')
+        vae.to(dtype=torch.float16)
+        model.to(dtype=torch.float16)
+        text_encoder.to(dtype=torch.float16)
+        image_encoder.to(dtype=torch.float16)
+        use_fp16 = True
+    print('Initialization Finished')
+    
     with torch.no_grad():
         print("begin generation", flush=True)
         transform_video = transforms.Compose([
