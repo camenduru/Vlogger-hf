@@ -234,7 +234,7 @@ def video_generation(text, image, scfg_scale, tcfg_scale, img_cfg_scale, diffusi
             print("xformer!")
         else:
             raise ValueError("xformers is not available. Make sure it is installed correctly")
-    if args.use_fp16:
+    if use_fp16:
         print('Warnning: using half percision for inferencing!')
         vae.to(dtype=torch.float16)
         model.to(dtype=torch.float16)
@@ -291,7 +291,7 @@ def video_prediction(text, image, scfg_scale, tcfg_scale, img_cfg_scale, prefram
             print("xformer!")
         else:
             raise ValueError("xformers is not available. Make sure it is installed correctly")
-    if args.use_fp16:
+    if use_fp16:
         print('Warnning: using half percision for inferencing!')
         vae.to(dtype=torch.float16)
         model.to(dtype=torch.float16)
