@@ -170,7 +170,8 @@ def init_model():
     parser.add_argument("--config", type=str, default="./configs/with_mask_ref_sample.yaml")
     args = parser.parse_args()
     args = OmegaConf.load(args.config)
-    device = "cuda" if torch.cuda.is_available() else "cpu"
+    # device = "cuda" if torch.cuda.is_available() else "cpu"
+    device = "cpu"
     output_path = args.save_path
     # Load model:
     latent_h = args.image_size[0] // 8
