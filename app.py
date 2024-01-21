@@ -348,5 +348,4 @@ with gr.Blocks() as demo:
     tcfg_scale = scfg_scale
     run.click(gen_or_pre, [text_input, image_input, scfg_scale, tcfg_scale, img_cfg_scale, preframe_input, diffusion_step], [output_video])
     
-demo.launch(share=True, enable_queue=True)
-# demo.launch(server_name="0.0.0.0", server_port=10034, enable_queue=True)
+demo.launch(max_size=1000)
