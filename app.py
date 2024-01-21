@@ -28,7 +28,7 @@ from transformers import CLIPVisionModelWithProjection, CLIPImageProcessor
 from transformers.image_transforms import convert_to_rgb
 import spaces
     
-# @spaces.GPU
+@spaces.GPU
 def auto_inpainting(video_input, masked_video, mask, prompt, image, vae, text_encoder, image_encoder, diffusion, model, device, cfg_scale, img_cfg_scale, negative_prompt=""):
     global use_fp16
     image_prompt_embeds = None
@@ -83,7 +83,7 @@ def auto_inpainting(video_input, masked_video, mask, prompt, image, vae, text_en
     video_clip = vae.decode(video_clip / 0.18215).sample # [16, 3, 256, 256]
     return video_clip
 
-# @spaces.GPU
+@spaces.GPU
 def auto_inpainting_temp_split(video_input, masked_video, mask, prompt, image, vae, text_encoder, image_encoder, diffusion, model, device, scfg_scale, tcfg_scale, img_cfg_scale, negative_prompt=""):
     global use_fp16
     image_prompt_embeds = None
@@ -213,8 +213,17 @@ init_model()
 # ========================================
 #             Video Generation
 # ========================================
-# @spaces.GPU
+@spaces.GPU
 def video_generation(text, image, scfg_scale, tcfg_scale, img_cfg_scale, diffusion):
+    global device
+    global output_path
+    global use_fp16
+    global model
+    global diffusion
+    global vae
+    global text_encoder
+    global image_encoder
+    global clip_image_processor 
     with torch.no_grad():
         print("begin generation", flush=True)
         transform_video = transforms.Compose([
@@ -243,8 +252,17 @@ def video_generation(text, image, scfg_scale, tcfg_scale, img_cfg_scale, diffusi
 # ========================================
 #             Video Prediction
 # ========================================
-# @spaces.GPU
+@spaces.GPU
 def video_prediction(text, image, scfg_scale, tcfg_scale, img_cfg_scale, preframe, diffusion):
+    global device
+    global output_path
+    global use_fp16
+    global model
+    global diffusion
+    global vae
+    global text_encoder
+    global image_encoder
+    global clip_image_processor
     with torch.no_grad():
         print("begin generation", flush=True)
         transform_video = transforms.Compose([
@@ -280,7 +298,7 @@ def video_prediction(text, image, scfg_scale, tcfg_scale, img_cfg_scale, prefram
 # ========================================
 #      Judge Generation or Prediction
 # ========================================
-# @spaces.GPU
+@spaces.GPU
 def gen_or_pre(text_input, image_input, scfg_scale, tcfg_scale, img_cfg_scale, preframe_input, diffusion_step):
     default_step = [25, 40, 50, 100, 125, 200, 250]
     difference = [abs(item - diffusion_step) for item in default_step]
