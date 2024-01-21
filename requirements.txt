@@ -13,7 +13,6 @@ xformers==0.0.20
 omegaconf==2.3.0
 natsort==8.4.0
 rotary_embedding_torch
-gradio==3.50.0
 
 black==23.7.0
 chardet==5.1.0
@@ -53,3 +52,4 @@ uuid
 python-docx
 tensorboardX
 tensorboard
+gradio==3.50.0
