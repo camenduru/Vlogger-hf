@@ -228,7 +228,7 @@ def video_generation(text, image, scfg_scale, tcfg_scale, img_cfg_scale, diffusi
     text_encoder = text_encoder.to(device)
     image_encoder = image_encoder.to(device)
     model = model.to(device)
-    if args.enable_xformers_memory_efficient_attention and device=="cuda":
+    if device=="cuda":
         if is_xformers_available():
             model.enable_xformers_memory_efficient_attention()
             print("xformer!")
@@ -285,7 +285,7 @@ def video_prediction(text, image, scfg_scale, tcfg_scale, img_cfg_scale, prefram
     text_encoder = text_encoder.to(device)
     image_encoder = image_encoder.to(device)
     model = model.to(device)
-    if args.enable_xformers_memory_efficient_attention and device=="cuda":
+    if device=="cuda":
         if is_xformers_available():
             model.enable_xformers_memory_efficient_attention()
             print("xformer!")
