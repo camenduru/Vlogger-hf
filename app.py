@@ -219,7 +219,6 @@ def video_generation(text, image, scfg_scale, tcfg_scale, img_cfg_scale, diffusi
     global output_path
     global use_fp16
     global model
-    global diffusion
     global vae
     global text_encoder
     global image_encoder
@@ -258,7 +257,6 @@ def video_prediction(text, image, scfg_scale, tcfg_scale, img_cfg_scale, prefram
     global output_path
     global use_fp16
     global model
-    global diffusion
     global vae
     global text_encoder
     global image_encoder
