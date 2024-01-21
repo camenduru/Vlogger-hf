@@ -205,7 +205,7 @@ def init_model():
         vae.to(dtype=torch.float16)
         model.to(dtype=torch.float16)
         text_encoder.to(dtype=torch.float16)
-        image_encoder.to(dtype=torch.float16)
+        # image_encoder.to(dtype=torch.float16)
         use_fp16 = True
     print('Initialization Finished')
 init_model()
