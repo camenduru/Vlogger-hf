@@ -407,6 +407,7 @@ with gr.Blocks() as demo:
             output_video = gr.Video(interactive=False, include_audio=True, elem_id="输出的视频")
             clear = gr.Button("Restart")
 
+    tcfg_scale = scfg_scale
     ex = gr.Examples(
         examples = [["Underwater environment cosmetic bottles", None, 7.5, 7.5, None, "./input/i2v/Underwater_environment_cosmetic_bottles.png", 100]],
         fn = gen_or_pre,
@@ -415,7 +416,6 @@ with gr.Blocks() as demo:
         cache_examples=False
         )
         
-    tcfg_scale = scfg_scale
     run.click(gen_or_pre, [text_input, image_input, scfg_scale, tcfg_scale, img_cfg_scale, preframe_input, diffusion_step], [output_video])
     
 demo.queue(max_size=12).launch()
