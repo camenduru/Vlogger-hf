@@ -400,11 +400,11 @@ with gr.Blocks() as demo:
 
     # tcfg_scale = scfg_scale
     ex = gr.Examples(
-        examples = [["Underwater environment cosmetic bottles", None, 7.5, 7.5, None, "./input/i2v/Underwater_environment_cosmetic_bottles.png", 100],
-                    ["A big drop of water falls on a rose petal", None, 7.5, 7.5, None, "./input/i2v/A_big_drop_of_water_falls_on_a_rose_petal.png", 100],
-                    ["A fish swims past an oriental woman", None, 7.5, 7.5, None, "./input/i2v/A_fish_swims_past_an_oriental_woman.png", 100],
-                    ["Cinematic photograph View of piloting aaero", None, 7.5, 7.5, None, "./input/i2v/Cinematic_photograph_View_of_piloting_aaero.png", 100],
-                    ["Planet hits earth", None, 7.5, 7.5, None, "./input/i2v/Planet_hits_earth.png", 100],
+        examples = [["Underwater environment cosmetic bottles", None, 7.5, None, "./input/i2v/Underwater_environment_cosmetic_bottles.png", 100],
+                    ["A big drop of water falls on a rose petal", None, 7.5, None, "./input/i2v/A_big_drop_of_water_falls_on_a_rose_petal.png", 100],
+                    ["A fish swims past an oriental woman", None, 7.5, None, "./input/i2v/A_fish_swims_past_an_oriental_woman.png", 100],
+                    ["Cinematic photograph View of piloting aaero", None, 7.5, None, "./input/i2v/Cinematic_photograph_View_of_piloting_aaero.png", 100],
+                    ["Planet hits earth", None, 7.5, None, "./input/i2v/Planet_hits_earth.png", 100],
                    ],
         fn = gen_or_pre,
         inputs = [text_input, image_input, scfg_scale, img_cfg_scale, preframe_input, diffusion_step],
