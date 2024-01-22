@@ -408,7 +408,7 @@ with gr.Blocks() as demo:
             clear = gr.Button("Restart")
 
     ex = gr.Examples(
-        examples = [["Underwater environment cosmetic bottles", None, 7.5, 7.5, None, "./input/i2v/Underwater_environment_cosmetic_bottles.png", 100],
+        examples = [["Underwater environment cosmetic bottles", None, 7.5, 7.5, None, "./input/i2v/Underwater_environment_cosmetic_bottles.png", 100]],
         fn = infer,
         inputs = [text_input, image_input, scfg_scale, tcfg_scale, img_cfg_scale, preframe_input, diffusion_step],
         outputs=[output_video],
