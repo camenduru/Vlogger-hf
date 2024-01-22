@@ -336,7 +336,8 @@ def video_prediction(text, image, scfg_scale, tcfg_scale, img_cfg_scale, prefram
 #      Judge Generation or Prediction
 # ========================================
 @spaces.GPU
-def gen_or_pre(text_input, image_input, scfg_scale, tcfg_scale, img_cfg_scale, preframe_input, diffusion_step):
+def gen_or_pre(text_input, image_input, scfg_scale, img_cfg_scale, preframe_input, diffusion_step):
+    tcfg_scale = scfg_scale
     default_step = [25, 40, 50, 100, 125, 200, 250]
     difference = [abs(item - diffusion_step) for item in default_step]
     diffusion_step = default_step[difference.index(min(difference))]
@@ -368,16 +369,6 @@ with gr.Blocks() as demo:
                         interactive=True,
                         label="Spatial Text Guidence Scale",
                     )
-            # with gr.Row():
-            #     with gr.Column(scale=1.0):
-            #         tcfg_scale = gr.Slider(
-            #             minimum=1,
-            #             maximum=50,
-            #             value=6.5,
-            #             step=0.1,
-            #             interactive=True,
-            #             label="Temporal Text Guidence Scale",
-            #         )
             with gr.Row():
                 with gr.Column(scale=1.0):
                     img_cfg_scale = gr.Slider(
@@ -407,15 +398,20 @@ with gr.Blocks() as demo:
             output_video = gr.Video(interactive=False, include_audio=True, elem_id="输出的视频")
             clear = gr.Button("Restart")
 
-    tcfg_scale = scfg_scale
+    # tcfg_scale = scfg_scale
     ex = gr.Examples(
-        examples = [["Underwater environment cosmetic bottles", None, 7.5, 7.5, None, "./input/i2v/Underwater_environment_cosmetic_bottles.png", 100]],
+        examples = [["Underwater environment cosmetic bottles", None, 7.5, 7.5, None, "./input/i2v/Underwater_environment_cosmetic_bottles.png", 100],
+                    ["A big drop of water falls on a rose petal", None, 7.5, 7.5, None, "./input/i2v/A_big_drop_of_water_falls_on_a_rose_petal.png", 100],
+                    ["A fish swims past an oriental woman", None, 7.5, 7.5, None, "./input/i2v/A_fish_swims_past_an_oriental_woman.png", 100],
+                    ["Cinematic photograph View of piloting aaero", None, 7.5, 7.5, None, "./input/i2v/Cinematic_photograph_View_of_piloting_aaero.png", 100],
+                    ["Planet hits earth", None, 7.5, 7.5, None, "./input/i2v/Planet_hits_earth.png", 100],
+                   ],
         fn = gen_or_pre,
-        inputs = [text_input, image_input, scfg_scale, tcfg_scale, img_cfg_scale, preframe_input, diffusion_step],
+        inputs = [text_input, image_input, scfg_scale, img_cfg_scale, preframe_input, diffusion_step],
         outputs=[output_video],
         cache_examples=False
         )
         
-    run.click(gen_or_pre, [text_input, image_input, scfg_scale, tcfg_scale, img_cfg_scale, preframe_input, diffusion_step], [output_video])
+    run.click(gen_or_pre, [text_input, image_input, scfg_scale, img_cfg_scale, preframe_input, diffusion_step], [output_video])
     
 demo.queue(max_size=12).launch()
