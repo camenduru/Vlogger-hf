@@ -409,7 +409,7 @@ with gr.Blocks() as demo:
 
     ex = gr.Examples(
         examples = [["Underwater environment cosmetic bottles", None, 7.5, 7.5, None, "./input/i2v/Underwater_environment_cosmetic_bottles.png", 100]],
-        fn = infer,
+        fn = gen_or_pre,
         inputs = [text_input, image_input, scfg_scale, tcfg_scale, img_cfg_scale, preframe_input, diffusion_step],
         outputs=[output_video],
         cache_examples=False
