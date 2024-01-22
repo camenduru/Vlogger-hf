@@ -406,6 +406,15 @@ with gr.Blocks() as demo:
         with gr.Column(scale=0.5, visible=True) as video_upload:
             output_video = gr.Video(interactive=False, include_audio=True, elem_id="输出的视频")
             clear = gr.Button("Restart")
+
+    ex = gr.Examples(
+        examples = [["Underwater environment cosmetic bottles", None, 7.5, 7.5, None, "./input/i2v/Underwater_environment_cosmetic_bottles.png", 100],
+        fn = infer,
+        inputs = [text_input, image_input, scfg_scale, tcfg_scale, img_cfg_scale, preframe_input, diffusion_step],
+        outputs=[output_video],
+        cache_examples=False
+        )
+        
     tcfg_scale = scfg_scale
     run.click(gen_or_pre, [text_input, image_input, scfg_scale, tcfg_scale, img_cfg_scale, preframe_input, diffusion_step], [output_video])
     
