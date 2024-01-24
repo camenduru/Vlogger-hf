@@ -414,4 +414,4 @@ with gr.Blocks() as demo:
         
     run.click(gen_or_pre, [text_input, image_input, scfg_scale, img_cfg_scale, preframe_input, diffusion_step], [output_video])
     
-demo.queue(max_size=12).launch()
+demo.queue(max_size=12).launch(share=True)
